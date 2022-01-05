@@ -1,5 +1,5 @@
 import * as cdk from '@aws-cdk/core';
-import {ManagedPolicy, Role, ServicePrincipal} from "@aws-cdk/aws-iam";
+import {AccountRootPrincipal, ManagedPolicy, Role, ServicePrincipal} from "@aws-cdk/aws-iam";
 import {Cluster, KubernetesVersion} from "@aws-cdk/aws-eks";
 import {Vpc} from "@aws-cdk/aws-ec2";
 import {Tags} from "@aws-cdk/core";
@@ -13,6 +13,11 @@ export class EksCdkStack extends cdk.Stack {
       vpcName: 'morningcode-main-vpc',
     });
 
+    const eksAdminRole = new Role(this, 'EksAdminRole', {
+      roleName: 'eks-admin-role',
+      assumedBy: new AccountRootPrincipal(),
+    });
+
     // IAM Role for EKS
     const eksRole = new Role(this, 'EksRole', {
       roleName: 'eks-role',
@@ -24,7 +29,8 @@ export class EksCdkStack extends cdk.Stack {
     // EKS Cluster
     const cluster = new Cluster(this, 'cluster', {
       vpc: vpc,
-      mastersRole: eksRole,
+      role: eksRole,
+      mastersRole: eksAdminRole,
       clusterName: 'morningcode',
       version: KubernetesVersion.V1_21,
     });

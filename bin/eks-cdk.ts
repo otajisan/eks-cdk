@@ -3,7 +3,7 @@ import 'source-map-support/register';
 import * as cdk from '@aws-cdk/core';
 import {EksCdkStack} from '../lib/eks-cdk-stack';
 
-const account = 'xxx';
+const account = '617995924773';
 
 const env = {
   region: 'ap-northeast-1',
