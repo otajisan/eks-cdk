@@ -33,7 +33,7 @@ runs:
       run: npm ci
       shell: sh
 
-   #- name: Create Pull Request
-   #  uses: peter-evans/create-pull-request@v3
-   #  with:
-   #    branch: fix/aws-cdk-${{ steps.aws-cdk-update-checker.outputs.latest_version }}
+   - name: Create Pull Request
+     uses: peter-evans/create-pull-request@v3
+     with:
+       branch: fix/aws-cdk-${{ steps.aws-cdk-update-checker.outputs.latest_version }}
