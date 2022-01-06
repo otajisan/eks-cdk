@@ -8,6 +8,8 @@ branding:
 outputs:
   latest_version:
     description: 'AWS CDK latest version'
+  foo:
+    description: 'test'
 
 runs:
   using: docker
