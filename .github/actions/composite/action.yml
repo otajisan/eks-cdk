@@ -21,7 +21,7 @@ runs:
       shell: sh
 
     - name: Replace package.json
-      run: ./replace_version.sh ${{ steps.aws-cdk-update-checker.outputs.latest_version }})\"/g"
+      run: ./replace_version.sh ${{ steps.aws-cdk-update-checker.outputs.latest_version }}
       shell: sh
 
     - name: Setup Node
