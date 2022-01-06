@@ -19,9 +19,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-    #- id: aws-cdk-update-checker
-    #  name: Check AWS CDK latest release
-    #  uses: morning-code/aws-cdk-update-checker@v0.0.14
     - id: aws-cdk-update-checker
       name: Check AWS CDK latest release
       uses: ./.github/actions/aws-cdk-update-checker
@@ -47,13 +44,11 @@ runs:
       with:
         token: ${{ inputs.token }}
         commit-message: fix/aws-cdk-${{ steps.aws-cdk-update-checker.outputs.latest_version }}
-        #committer: GitHub <noreply@github.com>
-        #author: GitHub <noreply@github.com>
         signoff: false
         base: ${{ inputs.base-branch }}
         branch: fix/aws-cdk-${{ steps.aws-cdk-update-checker.outputs.latest_version }}
         delete-branch: true
         title: fix/aws-cdk-${{ steps.aws-cdk-update-checker.outputs.latest_version }}
-        body: fix/aws-cdk-${{ steps.aws-cdk-update-checker.outputs.latest_version }}
+        body: "- [fix/aws-cdk-${{ steps.aws-cdk-update-checker.outputs.latest_version }}](https://github.com/aws/aws-cdk/releases/tag/${{ steps.aws-cdk-update-checker.outputs.latest_version }})"
         labels: aws-cdk-${{ steps.aws-cdk-update-checker.outputs.latest_version }}
         draft: false
