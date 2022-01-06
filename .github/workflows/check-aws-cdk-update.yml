@@ -10,4 +10,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       #- uses: morning-code/aws-cdk-update-checker@v0.0.14
-      - uses: morning-code/aws-cdk-update-pr-builder-action-ts@v1
+      #- uses: morning-code/aws-cdk-update-pr-builder-action-ts@v1
+      - uses: ./.github/actions/composite
