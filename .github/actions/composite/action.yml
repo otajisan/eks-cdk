@@ -49,6 +49,6 @@ runs:
         branch: fix/aws-cdk-${{ steps.aws-cdk-update-checker.outputs.latest_version }}
         delete-branch: true
         title: fix/aws-cdk-${{ steps.aws-cdk-update-checker.outputs.latest_version }}
-        body: "- [fix/aws-cdk-${{ steps.aws-cdk-update-checker.outputs.latest_version }}](https://github.com/aws/aws-cdk/releases/tag/${{ steps.aws-cdk-update-checker.outputs.latest_version }})"
+        body: "- [fix/aws-cdk-${{ steps.aws-cdk-update-checker.outputs.latest_version }}](https://github.com/aws/aws-cdk/releases/tag/v${{ steps.aws-cdk-update-checker.outputs.latest_version }})"
         labels: aws-cdk-${{ steps.aws-cdk-update-checker.outputs.latest_version }}
         draft: false
