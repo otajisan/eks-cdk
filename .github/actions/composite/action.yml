@@ -17,7 +17,7 @@ runs:
       name: Check AWS CDK latest release
       uses: ./.github/actions/aws-cdk-update-checker
 
-    - run: echo "foo={{ steps.aws-cdk-update-checker.outputs.foo }}latest_version=${{ steps.aws-cdk-update-checker.outputs.latest_version }}"
+    - run: echo "foo=${{ steps.aws-cdk-update-checker.outputs.foo }} latest_version=${{ steps.aws-cdk-update-checker.outputs.latest_version }}"
       shell: sh
 
     - name: "Setup Node"
