@@ -7,10 +7,6 @@ inputs:
     required: false
     description: 'version of nodejs'
 
-outputs:
-  latest_version:
-    description: 'AWS CDK latest version'
-
 runs:
   using: "composite"
   steps:
@@ -21,8 +17,8 @@ runs:
       name: Check AWS CDK latest release
       uses: ./.github/actions/aws-cdk-update-checker
 
-    - run: echo "::notice title=Output::${{ steps.aws-cdk-update-checker.outputs.latest_version }}"
-      shell: bash
+    - run: echo "latest_version=${{ steps.aws-cdk-update-checker.outputs.latest_version }}"
+      shell: sh
 
     - name: "Setup Node"
       uses: actions/setup-node@v2
