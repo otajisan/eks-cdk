@@ -11,8 +11,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v1
-      #- uses: morning-code/aws-cdk-update-checker@v0.0.14
-      #- uses: morning-code/aws-cdk-update-pr-builder-action-ts@v1
-      - uses: ./.github/actions/composite
+      - uses: morning-code/aws-cdk-update-pr-builder-action-ts@v1
         with:
           token: ${{ secrets.CR_PAT }}
