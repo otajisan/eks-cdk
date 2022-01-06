@@ -1,7 +1,7 @@
 #!/bin/sh
 
 aws_cdk_update_checker 2>&1 | tee ./latest_version
-latest_version=$(cat latest_version)
+latest_version=$(cat latest_version | tr -d 'v')
 rm -f ./latest_version
 
 echo "::set-output name=latest_version::$latest_version"
