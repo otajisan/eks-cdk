@@ -21,7 +21,7 @@ runs:
       shell: sh
 
     - name: Replace package.json
-      run: sed -i -e "s/\"aws-cdk\": \"[0-9].[0-9].[0-9]\"/\"aws-cdk\": \"$(echo ${{ steps.aws-cdk-update-checker.outputs.latest_version }})\"/g" ./package.json
+      run: ./replace_version.sh ${{ steps.aws-cdk-update-checker.outputs.latest_version }})\"/g"
       shell: sh
 
     - name: Setup Node
