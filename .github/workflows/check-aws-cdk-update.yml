@@ -9,5 +9,5 @@ jobs:
   check-aws-cdk-update:
     runs-on: ubuntu-latest
     steps:
-      - uses: morning-code/aws-cdk-update-checker@v0.0.9
+      - uses: morning-code/aws-cdk-update-checker@v0.0.10
       #- uses: morning-code/aws-cdk-update-pr-builder-action-ts@v1
