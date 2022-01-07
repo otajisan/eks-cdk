@@ -44,9 +44,7 @@ runs:
       shell: sh
 
     - name: Update packages.json
-      run: |
-        npm ci
-        npm run build
+      run: npm ci
       shell: sh
 
     - name: pwd
