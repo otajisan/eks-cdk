@@ -52,7 +52,7 @@ runs:
       shell: sh
 
     - name: tree
-      run: tree
+      run: tree -L 1
       shell: sh
 
     - name: Check git status
