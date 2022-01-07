@@ -40,11 +40,13 @@ runs:
       shell: sh
 
     - name: Run npm-check-updates
-      run: ncu
+      run: ncu -u
       shell: sh
 
     - name: Update packages.json
-      run: npm ci
+      run: |
+        npm ci
+        npm run build
       shell: sh
 
     - name: pwd
