@@ -47,6 +47,14 @@ runs:
       run: npm ci
       shell: sh
 
+    - name: pwd
+      run: pwd
+      shell: sh
+
+    - name: tree
+      run: tree
+      shell: sh
+
     - name: Check git status
       run: git status
       shell: sh
