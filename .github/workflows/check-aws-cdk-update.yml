@@ -12,7 +12,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
       - name: Create AWS CDK Update PR
-        uses: otajisan/aws-cdk-update-pr-builder-ts@v0.0.1
+        uses: otajisan/aws-cdk-update-pr-builder-ts@v1
         #uses: ./.github/actions/composite
         #uses: morning-code/aws-cdk-update-pr-builder-action-ts@v1
         with:
