@@ -47,18 +47,25 @@ runs:
       run: npm ci
       shell: sh
 
+    - name: Check git status
+      run: git status
+      shell: sh
+
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v3
       with:
         token: ${{ inputs.token }}
-        commit-message: upgrade/aws-cdk
+        commit-message: Upgrade AWS CDK
         signoff: false
         base: ${{ inputs.base-branch }}
         branch: upgrade/aws-cdk
         delete-branch: true
         title: upgrade/aws-cdk
-        body: "- [upgrade/aws-cdk](https://github.com/aws/aws-cdk/releases)"
-        labels: upgrade-aws-cdk
+        body: |
+          "# Upgrade AWS CDK"
+          "- [upgrade/aws-cdk](https://github.com/aws/aws-cdk/releases)"
+        labels: |
+          upgrade-aws-cdk
         draft: false
 
     #- name: Create Pull Request
