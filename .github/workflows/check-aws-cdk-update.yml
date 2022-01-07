@@ -15,3 +15,5 @@ jobs:
       - uses: ./.github/actions/composite
         with:
           token: ${{ secrets.CR_PAT }}
+          assignees: otajisan
+          reviewers: otajisan

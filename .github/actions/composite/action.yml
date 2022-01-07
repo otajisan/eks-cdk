@@ -16,6 +16,16 @@ inputs:
     required: false
     description: "base branch"
 
+  assignees:
+    default: ''
+    required: false
+    description: 'Pull Request Assignees (a comma or newline separated list)'
+
+  reviewers:
+    default: ''
+    required: false
+    description: 'Pull Request Reviewers (a comma or newline separated list)'
+
 runs:
   using: "composite"
   steps:
@@ -29,6 +39,9 @@ runs:
     #- name: Replace package.json
     #  run: ./.github/actions/composite/replace_version.sh ${{ steps.aws-cdk-update-checker.outputs.latest_version }}
     #  shell: sh
+    - name: Set current date
+      id: date
+      run: echo "::set-output name=date::$(date +'%Y%m%d')"
 
     - name: Setup Node
       uses: actions/setup-node@v2
@@ -47,22 +60,6 @@ runs:
       run: npm ci
       shell: sh
 
-    - name: pwd
-      run: pwd
-      shell: sh
-
-    - name: tree
-      run: tree -L 1
-      shell: sh
-
-    - name: cat
-      run: cat package.json
-      shell: sh
-
-    - name: ls
-      run: ls -l ..
-      shell: sh
-
     - name: Check git status
       run: git status
       shell: sh
@@ -71,17 +68,17 @@ runs:
       uses: peter-evans/create-pull-request@v3
       with:
         token: ${{ inputs.token }}
-        commit-message: Upgrade AWS CDK
+        commit-message: ${{ steps.date.outputs.date }} Upgrade AWS CDK
         signoff: false
         base: ${{ inputs.base-branch }}
-        branch: upgrade/aws-cdk
+        branch: upgrade/aws-cdk-${{ steps.date.outputs.date }}
         delete-branch: true
-        title: upgrade/aws-cdk
-        body: |
-          "# Upgrade AWS CDK"
-          "- [upgrade/aws-cdk](https://github.com/aws/aws-cdk/releases)"
+        title: ${{ steps.date.outputs.date }} Upgrade AWS CDK
+        body: " - [upgrade/aws-cdk](https://github.com/aws/aws-cdk/releases)"
         labels: |
           upgrade-aws-cdk
+        assignees: ${{ inputs.assignees }}
+        reviewers: ${{ inputs.reviewers }}
         draft: false
 
     #- name: Create Pull Request
