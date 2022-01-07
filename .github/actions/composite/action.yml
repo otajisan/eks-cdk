@@ -19,23 +19,31 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - id: aws-cdk-update-checker
-      name: Check AWS CDK latest release
-      uses: ./.github/actions/aws-cdk-update-checker
+    #- id: aws-cdk-update-checker
+    #  name: Check AWS CDK latest release
+    #  uses: ./.github/actions/aws-cdk-update-checker
 
-    - run: echo "latest_version=${{ steps.aws-cdk-update-checker.outputs.latest_version }}"
-      shell: sh
+    #- run: echo "latest_version=${{ steps.aws-cdk-update-checker.outputs.latest_version }}"
+    #  shell: sh
 
-    - name: Replace package.json
-      run: ./.github/actions/composite/replace_version.sh ${{ steps.aws-cdk-update-checker.outputs.latest_version }}
-      shell: sh
+    #- name: Replace package.json
+    #  run: ./.github/actions/composite/replace_version.sh ${{ steps.aws-cdk-update-checker.outputs.latest_version }}
+    #  shell: sh
 
     - name: Setup Node
       uses: actions/setup-node@v2
       with:
         node-version: ${{ inputs.node-version }}
 
-    - name: Update package-lock.json
+    - name: Install npm-check-updates
+      run: npm i -g npm-check-updates
+      shell: sh
+
+    - name: Run npm-check-updates
+      run: ncu
+      shell: sh
+
+    - name: Update packages.json
       run: npm ci
       shell: sh
 
@@ -43,12 +51,26 @@ runs:
       uses: peter-evans/create-pull-request@v3
       with:
         token: ${{ inputs.token }}
-        commit-message: fix/aws-cdk-${{ steps.aws-cdk-update-checker.outputs.latest_version }}
+        commit-message: upgrade/aws-cdk
         signoff: false
         base: ${{ inputs.base-branch }}
-        branch: fix/aws-cdk-${{ steps.aws-cdk-update-checker.outputs.latest_version }}
+        branch: upgrade/aws-cdk
         delete-branch: true
-        title: fix/aws-cdk-${{ steps.aws-cdk-update-checker.outputs.latest_version }}
-        body: "- [fix/aws-cdk-${{ steps.aws-cdk-update-checker.outputs.latest_version }}](https://github.com/aws/aws-cdk/releases/tag/v${{ steps.aws-cdk-update-checker.outputs.latest_version }})"
-        labels: aws-cdk-${{ steps.aws-cdk-update-checker.outputs.latest_version }}
+        title: upgrade/aws-cdk
+        body: "- [upgrade/aws-cdk](https://github.com/aws/aws-cdk/releases)"
+        labels: upgrade-aws-cdk
         draft: false
+
+    #- name: Create Pull Request
+    #  uses: peter-evans/create-pull-request@v3
+    #  with:
+    #    token: ${{ inputs.token }}
+    #    commit-message: fix/aws-cdk-${{ steps.aws-cdk-update-checker.outputs.latest_version }}
+    #    signoff: false
+    #    base: ${{ inputs.base-branch }}
+    #    branch: fix/aws-cdk-${{ steps.aws-cdk-update-checker.outputs.latest_version }}
+    #    delete-branch: true
+    #    title: fix/aws-cdk-${{ steps.aws-cdk-update-checker.outputs.latest_version }}
+    #    body: "- [fix/aws-cdk-${{ steps.aws-cdk-update-checker.outputs.latest_version }}](https://github.com/aws/aws-cdk/releases/tag/v${{ steps.aws-cdk-update-checker.outputs.latest_version }})"
+    #    labels: aws-cdk-${{ steps.aws-cdk-update-checker.outputs.latest_version }}
+    #    draft: false
