@@ -55,6 +55,14 @@ runs:
       run: tree -L 1
       shell: sh
 
+    - name: cat
+      run: cat package.json
+      shell: sh
+
+    - name: ls
+      run: ls -l ..
+      shell: sh
+
     - name: Check git status
       run: git status
       shell: sh
